@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}</style>
+<title>보름숲 웰컴 와인</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+SC:wght@600&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<style>
+  /* Layout: one phone-width column — forest "night" hero with a rising full moon, a staff card, a letter under the moon phases, then quiet review links. */
+  :root {
+    --forest: #1F3A33;
+    --forest-deep: #162B26;
+    --moon: #C9A86A;
+    --wine: #7A2E3A;
+    --bg: #F3F5F3;
+    --surface: #FFFFFF;
+    --ink: #1C2A26;
+    --muted: #5A6864;
+    --line: #D5DED9;
+    --chip: #E6ECE8;
+    --done: #2F6B4F;
+    --on-forest: #F2F5F3;
+    --on-forest-muted: #B9CAC3;
+    --display: "Gowun Batang", "Noto Serif SC", "Apple SD Gothic Neo", serif;
+    --body: "Noto Sans KR", "Noto Sans SC", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0F1D19; --surface: #182925; --ink: #E7EEEB; --muted: #A3B4AE;
+      --line: #2B403A; --chip: #22362F; --wine: #C77B87; --done: #7CC29E; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0F1D19; --surface: #182925; --ink: #E7EEEB; --muted: #A3B4AE;
+    --line: #2B403A; --chip: #22362F; --wine: #C77B87; --done: #7CC29E; color-scheme: dark;
+  }
+  html:lang(zh) { --display: "Noto Serif SC", "Gowun Batang", serif; --body: "Noto Sans SC", "Noto Sans KR", system-ui, sans-serif; }
+
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; word-break: keep-all; overflow-wrap: anywhere; }
+  html:lang(zh) body { word-break: normal; }
+  .wrap { max-width: 440px; margin: 0 auto; padding-inline: 16px; padding-block: 0 40px; }
+
+  /* hero */
+  .hero { background: var(--forest); color: var(--on-forest); margin-inline: -16px; padding: 18px 24px 64px; position: relative; overflow: hidden; }
+  .hero::after { content: ""; position: absolute; inset: auto -20% -40% -20%; height: 60%; background: radial-gradient(ellipse at 50% 0%, rgba(201,168,106,.10), transparent 70%); pointer-events: none; }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .mark { font-weight: 500; letter-spacing: .32em; font-size: 12px; }
+  .mark small { display: block; letter-spacing: .12em; font-size: 11px; color: var(--on-forest-muted); margin-top: 2px; }
+  .langs { display: flex; gap: 4px; }
+  .langs button { font: 500 12px/1 var(--body); color: var(--on-forest); background: transparent; border: 1px solid rgba(242,245,243,.3); border-radius: 999px; padding: 7px 10px; cursor: pointer; min-width: 40px; }
+  .langs button[aria-pressed="true"] { background: var(--moon); border-color: var(--moon); color: var(--forest-deep); font-weight: 700; }
+  button:focus-visible, .link:focus-visible { outline: 2px solid var(--moon); outline-offset: 2px; }
+
+  .moon { width: 64px; height: 64px; border-radius: 50%; margin: 36px 0 22px; background: radial-gradient(circle at 38% 36%, #E3CC98, var(--moon) 58%, #B48F4E); box-shadow: 0 0 0 10px rgba(201,168,106,.12), 0 0 48px 6px rgba(201,168,106,.25); animation: rise 1.4s cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes rise { from { transform: translateY(14px); opacity: .55; } to { transform: none; opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .moon { animation: none; } }
+  h1 { font-family: var(--display); font-weight: 700; font-size: clamp(27px, 7.4vw, 32px); line-height: 1.3; margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+  .lead { margin: 12px 0 0; color: var(--on-forest-muted); font-size: 15px; max-width: 30ch; }
+
+  /* staff card */
+  .card { background: var(--surface); border-radius: 18px; margin-top: -40px; position: relative; padding: 22px 20px 20px; box-shadow: 0 10px 30px rgba(15,29,25,.16); }
+  .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .16em; color: var(--wine); text-transform: uppercase; }
+  .card h2 { font-family: var(--display); font-size: 25px; line-height: 1.3; margin: 4px 0 16px; }
+  .show { background: var(--forest); color: var(--on-forest); border: 1px solid rgba(201,168,106,.35); border-radius: 14px; padding: 16px; display: grid; gap: 12px; }
+  .show-title { font-weight: 700; font-size: 16px; }
+  .clock { display: grid; gap: 2px; border-top: 1px solid rgba(242,245,243,.18); padding-top: 10px; }
+  .clock-label { font-size: 12px; color: var(--on-forest-muted); }
+  .clock-time { font-variant-numeric: tabular-nums; font-size: 18px; font-weight: 500; letter-spacing: .02em; white-space: nowrap; }
+  .staff { width: 100%; font: 700 15px/1.3 var(--body); color: var(--forest-deep); background: var(--moon); border: 0; border-radius: 10px; padding: 13px 14px; cursor: pointer; text-align: center; }
+  .staff small { display: block; font-weight: 500; font-size: 11px; opacity: .8; margin-top: 2px; }
+  .staff[data-state="confirm"] { background: #E3CC98; }
+  .staff[data-state="done"] { background: transparent; color: var(--on-forest); border: 1px dashed rgba(242,245,243,.45); cursor: default; }
+  .alt { margin: 14px 0 0; font-size: 13px; color: var(--muted); }
+
+  /* letter */
+  .letter { margin-top: 40px; }
+  .phases { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; }
+  .ph { width: 14px; height: 14px; border-radius: 50%; background: var(--line); position: relative; overflow: hidden; }
+  .ph::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--moon); clip-path: inset(0 0 0 var(--cut)); }
+  .letter h3 { font-family: var(--display); font-size: 22px; line-height: 1.35; margin: 0 0 4px; text-wrap: balance; }
+  .note-en { font-size: 12px; color: var(--muted); font-style: italic; margin: 0 0 12px; }
+  .letter p.body { margin: 12px 0 0; font-size: 15px; line-height: 1.8; }
+  .sign { margin-top: 16px; font-family: var(--display); font-size: 15px; color: var(--muted); }
+
+  /* review links */
+  .review { margin-top: 28px; }
+  .review-label { font-size: 12px; font-weight: 700; letter-spacing: .12em; color: var(--muted); text-transform: uppercase; margin-bottom: 10px; }
+  .links { display: grid; gap: 10px; }
+  .link { display: flex; align-items: center; justify-content: space-between; gap: 12px; text-decoration: none; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; font-weight: 500; min-height: 52px; }
+  .link .go { color: var(--muted); font-size: 18px; line-height: 1; }
+  .link[aria-disabled="true"] { color: var(--muted); background: var(--chip); border-style: dashed; pointer-events: none; }
+  .link[aria-disabled="true"] .go { font-size: 12px; }
+
+  .fine { margin-top: 18px; background: var(--chip); border-radius: 12px; padding: 12px 14px; font-size: 13px; color: var(--ink); }
+  footer { margin-top: 32px; text-align: center; color: var(--muted); font-size: 12px; letter-spacing: .08em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="bar">
+      <div class="mark">BOREUMSUP<small>보름숲 · 满月林</small></div>
+      <nav class="langs" aria-label="Language">
+        <button type="button" id="lang-ko" data-lang="ko" aria-pressed="false">KO</button>
+        <button type="button" id="lang-zh" data-lang="zh" aria-pressed="false">中文</button>
+        <button type="button" id="lang-en" data-lang="en" aria-pressed="false">EN</button>
+      </nav>
+    </div>
+    <div class="moon" aria-hidden="true"></div>
+    <h1 data-t="hero"></h1>
+    <p class="lead" data-t="lead"></p>
+  </header>
+
+  <main>
+    <section class="card" aria-labelledby="wine-title">
+      <div class="eyebrow">Welcome Wine</div>
+      <h2 id="wine-title" data-t="title"></h2>
+      <div class="show">
+        <div class="show-title" data-t="show"></div>
+        <div class="clock">
+          <span class="clock-label" data-t="clock"></span>
+          <span class="clock-time" id="clock">--</span>
+        </div>
+        <button type="button" class="staff" id="staff-btn" data-state="ready"></button>
+      </div>
+      <p class="alt" data-t="alt"></p>
+    </section>
+
+    <article class="letter" aria-labelledby="letter-title">
+      <div class="phases" aria-hidden="true">
+        <span class="ph" style="--cut:85%"></span>
+        <span class="ph" style="--cut:65%"></span>
+        <span class="ph" style="--cut:45%"></span>
+        <span class="ph" style="--cut:22%"></span>
+        <span class="ph" style="--cut:0%"></span>
+      </div>
+      <h3 id="letter-title" data-t="lt"></h3>
+      <p class="note-en" id="note-en" hidden>Boreum (보름) means "full moon" in Korean.</p>
+      <div id="letter-body"></div>
+      <div class="sign" data-t="sign"></div>
+    </article>
+
+    <section class="review" aria-label="Reviews">
+      <div class="review-label" data-t="rl"></div>
+      <div class="links" id="links"></div>
+      <div class="fine" data-t="fine"></div>
+    </section>
+  </main>
+
+  <footer>BOREUMSUP · JEJU</footer>
+</div>
+
+<script>
+  /* ===== 설정 =====
+     LINKS: 매장 리뷰 페이지 주소 (google = 비즈니스 프로필 > 리뷰 받기에서 발급한 공식 리뷰 링크)
+     GA_ID: Google Analytics 4 측정 ID (예: "G-XXXXXXX"). 외부 호스팅에 올렸을 때만 작동합니다. */
+  const LINKS = { naver: "", google: "", dianping: "" };
+  const GA_ID = "";
+
+  const NAMES = {
+    ko: { naver: "네이버 지도", google: "Google 지도", dianping: "따종디엔핑 大众点评" },
+    zh: { naver: "NAVER 地图", google: "Google 地图", dianping: "大众点评" },
+    en: { naver: "Naver Map", google: "Google Maps", dianping: "Dianping 大众点评" }
+  };
+  const ORDER = { ko: ["naver", "google", "dianping"], zh: ["dianping", "google", "naver"], en: ["google", "dianping", "naver"] };
+
+  const T = {
+    ko: {
+      hero: "식사와 함께\n와인을 곁들여보세요",
+      lead: "보름숲이 오늘 방문해 주신 분께 하우스와인 한 잔을 드립니다.",
+      title: "하우스와인 1잔",
+      show: "이 화면을 직원에게 보여주세요",
+      clock: "직원 확인용 · 현재 시각",
+      alt: "운전하시는 분, 만 19세 미만 고객께는 무알콜 음료로 대신 드립니다.",
+      lt: "다시 차오르는 달처럼",
+      letter: [
+        "달은 매일 둥글지 않습니다. 조금씩 기울었다가, 다시 차올라 보름달이 됩니다.",
+        "보름숲도 매일 조금씩 채워가고 있습니다. 그 빈자리를 채워주는 것은 손님들이 들려주시는 이야기입니다.",
+        "저희 직원들은 매일 리뷰를 함께 읽고, 다음 방문이 오늘보다 더 좋아지도록 이야기 나눕니다.",
+        "그래서 리뷰에는 따로 혜택을 드리지 않습니다. 손님께서 느끼신 그대로의 이야기를 듣고 싶기 때문입니다.",
+        "오늘 보름숲에서의 시간은 어떠셨나요? 편하실 때, 여행을 마치신 뒤라도 들려주세요. 손님의 이야기는 이 달 아래 앉으실 다음 손님께, 그리고 다시 찾아주실 손님께로 이어집니다."
+      ],
+      sign: "감사합니다. 보름숲 드림",
+      rl: "후기 남기기",
+      fine: "와인은 후기 작성 여부와 관계없이 제공됩니다.",
+      soon: "링크 연결 예정"
+    },
+    zh: {
+      hero: "用餐时\n来一杯葡萄酒吧",
+      lead: "满月林为今天到店的客人免费赠送一杯店家精选葡萄酒。",
+      title: "免费赠送一杯葡萄酒",
+      show: "请向服务员出示此页面",
+      clock: "供服务员确认 · 当前时间",
+      alt: "驾车及未满19岁的客人，我们将改为提供无酒精饮品。",
+      lt: "如同再次盈满的月亮",
+      letter: [
+        "月亮并非每天都是圆的。它会一点点亏缺，再慢慢盈满，成为满月。",
+        "满月林也在每天一点一点地充实自己。填补那些空缺的，是客人们讲给我们听的故事。",
+        "我们的员工每天都会一起阅读评价，讨论如何让您的下一次到访比今天更好。",
+        "所以，我们不会为评价提供任何奖励。因为我们想听到的，是您最真实的感受。",
+        "今天在满月林度过的时光如何？方便的时候，哪怕是旅行结束之后，也请告诉我们。您的故事会传递给下一位坐在这轮月亮下的客人，也会传递给再次光临的客人。"
+      ],
+      sign: "谢谢。满月林 敬上",
+      rl: "留下评价",
+      fine: "无论是否留下评价，均可获赠葡萄酒。",
+      soon: "链接准备中"
+    },
+    en: {
+      hero: "Pair your meal\nwith a glass of wine",
+      lead: "Boreumsup welcomes today's guests with a complimentary glass of house wine.",
+      title: "A glass of house wine, on us",
+      show: "Show this screen to our staff",
+      clock: "For staff · current time",
+      alt: "Driving or under 19? We'll serve you a non-alcoholic drink instead.",
+      lt: "Like the moon, filling again",
+      letter: [
+        "The moon isn't full every night. It wanes little by little, then fills again until it becomes a full moon.",
+        "Boreumsup is filling up a little more each day, too. What fills the empty spaces are the stories our guests share with us.",
+        "Our team reads your reviews together every day and talks about how to make your next visit better than today.",
+        "That's why we don't offer anything in return for reviews. We want to hear your experience exactly as you felt it.",
+        "How was your time at Boreumsup today? Whenever it suits you, even after your trip, please tell us. Your story will reach the next guest who sits beneath this moon, and the guests who come back to see us again."
+      ],
+      sign: "Thank you. From all of us at Boreumsup",
+      rl: "Leave a review",
+      fine: "Your glass of wine is complimentary whether or not you leave a review.",
+      soon: "Link coming soon"
+    }
+  };
+
+  /* ===== 측정 (GA4) =====
+     page_view: 자동 / wine_redeem: 직원이 '제공 완료'를 누를 때 / review_click: 후기 버튼을 누를 때 (platform 값 포함) */
+  function loadAnalytics() {
+    if (!GA_ID) return;
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag("js", new Date());
+      window.gtag("config", GA_ID);
+      const s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_ID);
+      document.head.appendChild(s);
+    } catch (e) {}
+  }
+  function track(name, params) {
+    try { if (window.gtag) window.gtag("event", name, Object.assign({ language: lang }, params || {})); } catch (e) {}
+  }
+
+  let lang = "ko";
+
+  function pickInitial() {
+    try { const saved = localStorage.getItem("bs-lang"); if (saved && T[saved]) return saved; } catch (e) {}
+    const nav = (navigator.languages && navigator.languages[0]) || navigator.language || "ko";
+    if (/^zh/i.test(nav)) return "zh";
+    if (/^ko/i.test(nav)) return "ko";
+    return "en";
+  }
+
+  function setLines(el, text) {
+    el.textContent = "";
+    text.split("\n").forEach((line, i) => { if (i) el.appendChild(document.createElement("br")); el.appendChild(document.createTextNode(line)); });
+  }
+
+  function render() {
+    const t = T[lang];
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
+    document.querySelectorAll("[data-t]").forEach(el => setLines(el, t[el.getAttribute("data-t")]));
+    document.querySelectorAll(".langs button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+    document.getElementById("note-en").hidden = lang !== "en";
+
+    const body = document.getElementById("letter-body");
+    body.textContent = "";
+    t.letter.forEach(par => { const p = document.createElement("p"); p.className = "body"; p.textContent = par; body.appendChild(p); });
+
+    const box = document.getElementById("links");
+    box.textContent = "";
+    ORDER[lang].forEach(key => {
+      const a = document.createElement("a");
+      a.className = "link";
+      a.id = "link-" + key;
+      const name = document.createElement("span"); name.textContent = NAMES[lang][key];
+      const go = document.createElement("span"); go.className = "go"; go.setAttribute("aria-hidden", "true");
+      if (LINKS[key]) {
+        a.href = LINKS[key]; a.target = "_blank"; a.rel = "noopener"; go.textContent = "›";
+        a.addEventListener("click", () => track("review_click", { platform: key }));
+      } else {
+        a.setAttribute("aria-disabled", "true"); go.textContent = t.soon;
+      }
+      a.append(name, go);
+      box.appendChild(a);
+    });
+    renderStaff();
+    tick();
+  }
+
+  /* ===== 직원 '제공 완료' 버튼 (직원용이라 한국어 고정) =====
+     한 번 누르면 확인 단계, 3초 안에 한 번 더 누르면 완료. 같은 휴대폰에서는 오늘 하루 '제공 완료'로 표시됩니다. */
+  const staffBtn = document.getElementById("staff-btn");
+  let confirmTimer = null;
+  function todayKey() { const d = new Date(); return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate(); }
+  function readRedeemed() {
+    try { const v = JSON.parse(localStorage.getItem("bs-redeemed") || "null"); return v && v.day === todayKey() ? v : null; } catch (e) { return null; }
+  }
+  function renderStaff() {
+    const r = readRedeemed();
+    staffBtn.textContent = "";
+    const main = document.createElement("span");
+    const sub = document.createElement("small");
+    if (r) {
+      staffBtn.dataset.state = "done"; staffBtn.disabled = true;
+      main.textContent = "✓ 와인 제공 완료 " + r.time;
+      sub.textContent = "오늘 이 휴대폰으로 이미 제공되었습니다";
+    } else if (staffBtn.dataset.state === "confirm") {
+      staffBtn.disabled = false;
+      main.textContent = "한 번 더 누르면 제공 완료";
+      sub.textContent = "직원 전용";
+    } else {
+      staffBtn.dataset.state = "ready"; staffBtn.disabled = false;
+      main.textContent = "와인 제공 완료";
+      sub.textContent = "직원 전용 · 제공 후 눌러주세요";
+    }
+    staffBtn.append(main, sub);
+  }
+  staffBtn.addEventListener("click", () => {
+    if (readRedeemed()) return;
+    if (staffBtn.dataset.state !== "confirm") {
+      staffBtn.dataset.state = "confirm"; renderStaff();
+      clearTimeout(confirmTimer);
+      confirmTimer = setTimeout(() => { if (staffBtn.dataset.state === "confirm") { staffBtn.dataset.state = "ready"; renderStaff(); } }, 3000);
+      return;
+    }
+    clearTimeout(confirmTimer);
+    const now = new Date();
+    const time = String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0");
+    try { localStorage.setItem("bs-redeemed", JSON.stringify({ day: todayKey(), time })); } catch (e) {}
+    staffBtn.dataset.state = "done";
+    track("wine_redeem");
+    renderStaff();
+    if (!readRedeemed()) { staffBtn.disabled = true; staffBtn.textContent = "✓ 와인 제공 완료 " + time; }
+  });
+
+  function tick() {
+    const now = new Date();
+    const loc = lang === "zh" ? "zh-CN" : lang === "en" ? "en-US" : "ko-KR";
+    const d = now.toLocaleDateString(loc, { month: "short", day: "numeric", weekday: "short" });
+    const tm = now.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
+    document.getElementById("clock").textContent = d + "  " + tm;
+  }
+
+  document.querySelectorAll(".langs button").forEach(b => b.addEventListener("click", () => {
+    lang = b.dataset.lang;
+    try { localStorage.setItem("bs-lang", lang); } catch (e) {}
+    render();
+  }));
+
+  lang = pickInitial();
+  loadAnalytics();
+  render();
+  setInterval(tick, 1000);
+</script>
+</body>
+</html>
