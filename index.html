@@ -95,6 +95,12 @@
   .link .go { color: var(--muted); font-size: 18px; line-height: 1; }
   .link[aria-disabled="true"] { color: var(--muted); background: var(--chip); border-style: dashed; pointer-events: none; }
   .link[aria-disabled="true"] .go { font-size: 12px; }
+  .link .lead-in { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .link .ico { flex: 0 0 34px; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--chip); color: var(--forest); }
+  .link .ico svg { width: 18px; height: 18px; display: block; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .link .ico { color: var(--moon); } }
+  :root[data-theme="dark"] .link .ico { color: var(--moon); }
+  .link[aria-disabled="true"] .ico { background: transparent; }
 
   .fine { margin-top: 18px; background: var(--chip); border-radius: 12px; padding: 12px 14px; font-size: 13px; color: var(--ink); }
   footer { margin-top: 32px; text-align: center; color: var(--muted); font-size: 12px; letter-spacing: .08em; }
@@ -162,6 +168,11 @@
   const LINKS = { naver: "https://naver.me/F1r2T6Oy", google: "https://share.google/WrmqrnarodhqoMafY", dianping: "https://m.dianping.com/shopinfo/H3uxKhJFgEYGxx9h" };
   const GA_ID = "";
 
+  const ICONS = {
+    naver: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg>',
+    google: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.6l2.5 5.2 5.7.8-4.1 4 1 5.6L12 16.6l-5.1 2.6 1-5.6-4.1-4 5.7-.8z"/></svg>',
+    dianping: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M5 5.5h14a1.5 1.5 0 0 1 1.5 1.5v8a1.5 1.5 0 0 1-1.5 1.5h-7l-4.5 3.5v-3.5H5A1.5 1.5 0 0 1 3.5 15V7A1.5 1.5 0 0 1 5 5.5z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01" stroke-width="2.4" stroke-linecap="round"/></svg>'
+  };
   const NAMES = {
     ko: { naver: "네이버 지도", google: "Google 지도", dianping: "따종디엔핑 大众点评" },
     zh: { naver: "NAVER 地图", google: "Google 地图", dianping: "大众点评" },
@@ -182,7 +193,7 @@
         "달은 매일 둥글지 않습니다. 조금씩 기울었다가, 다시 차올라 보름달이 됩니다.",
         "보름숲도 매일 조금씩 채워가고 있습니다. 그 빈자리를 채워주는 것은 손님들이 들려주시는 이야기입니다.",
         "저희 직원들은 매일 리뷰를 함께 읽고, 다음 방문이 오늘보다 더 좋아지도록 이야기 나눕니다.",
-        "그래서 리뷰에는 따로 혜택을 드리지 않습니다. 손님께서 느끼신 그대로의 이야기를 듣고 싶기 때문입니다.",
+        "길지 않아도 괜찮습니다. 오늘 가장 기억에 남은 한 가지, 한 줄이면 충분합니다.",
         "오늘 보름숲에서의 시간은 어떠셨나요? 편하실 때, 여행을 마치신 뒤라도 들려주세요. 손님의 이야기는 이 달 아래 앉으실 다음 손님께, 그리고 다시 찾아주실 손님께로 이어집니다."
       ],
       sign: "감사합니다. 보름숲 드림",
@@ -202,7 +213,7 @@
         "月亮并非每天都是圆的。它会一点点亏缺，再慢慢盈满，成为满月。",
         "满月林也在每天一点一点地充实自己。填补那些空缺的，是客人们讲给我们听的故事。",
         "我们的员工每天都会一起阅读评价，讨论如何让您的下一次到访比今天更好。",
-        "所以，我们不会为评价提供任何奖励。因为我们想听到的，是您最真实的感受。",
+        "不用写很长。今天最难忘的一件事，一句话就足够了。",
         "今天在满月林度过的时光如何？方便的时候，哪怕是旅行结束之后，也请告诉我们。您的故事会传递给下一位坐在这轮月亮下的客人，也会传递给再次光临的客人。"
       ],
       sign: "谢谢。满月林 敬上",
@@ -222,7 +233,7 @@
         "The moon isn't full every night. It wanes little by little, then fills again until it becomes a full moon.",
         "Boreumsup is filling up a little more each day, too. What fills the empty spaces are the stories our guests share with us.",
         "Our team reads your reviews together every day and talks about how to make your next visit better than today.",
-        "That's why we don't offer anything in return for reviews. We want to hear your experience exactly as you felt it.",
+        "It doesn't have to be long. The one thing you remember most from today, in a single line, is plenty.",
         "How was your time at Boreumsup today? Whenever it suits you, even after your trip, please tell us. Your story will reach the next guest who sits beneath this moon, and the guests who come back to see us again."
       ],
       sign: "Thank you. From all of us at Boreumsup",
@@ -283,7 +294,10 @@
       const a = document.createElement("a");
       a.className = "link";
       a.id = "link-" + key;
-      const name = document.createElement("span"); name.textContent = NAMES[lang][key];
+      const name = document.createElement("span"); name.className = "lead-in";
+      const ico = document.createElement("span"); ico.className = "ico"; ico.setAttribute("aria-hidden", "true"); ico.innerHTML = ICONS[key];
+      const label = document.createElement("span"); label.textContent = NAMES[lang][key];
+      name.append(ico, label);
       const go = document.createElement("span"); go.className = "go"; go.setAttribute("aria-hidden", "true");
       if (LINKS[key]) {
         a.href = LINKS[key]; a.target = "_blank"; a.rel = "noopener"; go.textContent = "›";
