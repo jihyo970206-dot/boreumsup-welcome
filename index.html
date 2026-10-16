@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}</style>
-<title>보름숲 웰컴 와인</title>
+<title>Boreumsup Welcome Wine · 满月林</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+SC:wght@600&family=Noto+Sans+SC:wght@400;500;700&display=swap">
@@ -112,7 +112,6 @@
     <div class="bar">
       <div class="mark">BOREUMSUP<small>보름숲 · 满月林</small></div>
       <nav class="langs" aria-label="Language">
-        <button type="button" id="lang-ko" data-lang="ko" aria-pressed="false">KO</button>
         <button type="button" id="lang-zh" data-lang="zh" aria-pressed="false">中文</button>
         <button type="button" id="lang-en" data-lang="en" aria-pressed="false">EN</button>
       </nav>
@@ -167,6 +166,8 @@
      GA_ID: Google Analytics 4 측정 ID (예: "G-XXXXXXX"). 외부 호스팅에 올렸을 때만 작동합니다. */
   const LINKS = { naver: "https://naver.me/F1r2T6Oy", google: "https://share.google/WrmqrnarodhqoMafY", dianping: "https://m.dianping.com/shopinfo/H3uxKhJFgEYGxx9h" };
   const GA_ID = "";
+  /* SHEET_URL: 구글 시트 Apps Script 웹 앱 주소 (https://script.google.com/macros/s/…/exec) */
+  const SHEET_URL = "";
 
   const ICONS = {
     naver: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg>',
@@ -174,33 +175,12 @@
     dianping: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M5 5.5h14a1.5 1.5 0 0 1 1.5 1.5v8a1.5 1.5 0 0 1-1.5 1.5h-7l-4.5 3.5v-3.5H5A1.5 1.5 0 0 1 3.5 15V7A1.5 1.5 0 0 1 5 5.5z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01" stroke-width="2.4" stroke-linecap="round"/></svg>'
   };
   const NAMES = {
-    ko: { naver: "네이버 지도", google: "Google 지도", dianping: "따종디엔핑 大众点评" },
     zh: { naver: "NAVER 地图", google: "Google 地图", dianping: "大众点评" },
     en: { naver: "Naver Map", google: "Google Maps", dianping: "Dianping 大众点评" }
   };
-  const ORDER = { ko: ["naver", "google", "dianping"], zh: ["dianping", "google", "naver"], en: ["google", "dianping", "naver"] };
+  const ORDER = { zh: ["dianping", "google", "naver"], en: ["google", "dianping", "naver"] };
 
   const T = {
-    ko: {
-      hero: "식사와 함께\n와인을 곁들여보세요",
-      lead: "보름숲이 오늘 방문해 주신 분께 하우스와인 한 잔을 드립니다.",
-      title: "하우스와인 1잔",
-      show: "이 화면을 직원에게 보여주세요",
-      clock: "직원 확인용 · 현재 시각",
-      alt: "운전하시는 분, 만 19세 미만 고객께는 무알콜 음료로 대신 드립니다.",
-      lt: "다시 차오르는 달처럼",
-      letter: [
-        "달은 매일 둥글지 않습니다. 조금씩 기울었다가, 다시 차올라 보름달이 됩니다.",
-        "보름숲도 매일 조금씩 채워가고 있습니다. 그 빈자리를 채워주는 것은 손님들이 들려주시는 이야기입니다.",
-        "저희 직원들은 매일 리뷰를 함께 읽고, 다음 방문이 오늘보다 더 좋아지도록 이야기 나눕니다.",
-        "길지 않아도 괜찮습니다. 오늘 가장 기억에 남은 한 가지, 한 줄이면 충분합니다.",
-        "오늘 보름숲에서의 시간은 어떠셨나요? 편하실 때, 여행을 마치신 뒤라도 들려주세요. 손님의 이야기는 이 달 아래 앉으실 다음 손님께, 그리고 다시 찾아주실 손님께로 이어집니다."
-      ],
-      sign: "감사합니다. 보름숲 드림",
-      rl: "후기 남기기",
-      fine: "와인은 후기 작성 여부와 관계없이 제공됩니다.",
-      soon: "링크 연결 예정"
-    },
     zh: {
       hero: "用餐时\n来一杯葡萄酒吧",
       lead: "满月林为今天到店的客人免费赠送一杯店家精选葡萄酒。",
@@ -233,7 +213,7 @@
         "The moon isn't full every night. It wanes little by little, then fills again until it becomes a full moon.",
         "Boreumsup is filling up a little more each day, too. What fills the empty spaces are the stories our guests share with us.",
         "Our team reads your reviews together every day and talks about how to make your next visit better than today.",
-        "It doesn't have to be long. The one thing you remember most from today, in a single line, is plenty.",
+        "It doesn't have to be long. Just one line about what you remember most from today is plenty.",
         "How was your time at Boreumsup today? Whenever it suits you, even after your trip, please tell us. Your story will reach the next guest who sits beneath this moon, and the guests who come back to see us again."
       ],
       sign: "Thank you. From all of us at Boreumsup",
@@ -258,17 +238,31 @@
       document.head.appendChild(s);
     } catch (e) {}
   }
+  /* 방문 ID(같은 탭에서 새로고침해도 유지), 위치 코드(?loc=), 기기 */
+  const SID = (function () {
+    try { let v = sessionStorage.getItem("bs-sid"); if (!v) { v = Date.now().toString(36) + Math.random().toString(36).slice(2, 8); sessionStorage.setItem("bs-sid", v); } return v; }
+    catch (e) { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+  })();
+  const LOC = (function () { try { return new URLSearchParams(location.search).get("loc") || ""; } catch (e) { return ""; } })();
+  const DEVICE = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iOS" : /Android/i.test(navigator.userAgent) ? "Android" : "PC/기타";
+
   function track(name, params) {
-    try { if (window.gtag) window.gtag("event", name, Object.assign({ language: lang }, params || {})); } catch (e) {}
+    const data = Object.assign({ event: name, lang: lang, loc: LOC, sid: SID, device: DEVICE }, params || {});
+    try { if (window.gtag) window.gtag("event", name, data); } catch (e) {}
+    if (!SHEET_URL) return;
+    try {
+      const body = new URLSearchParams(data);
+      if (navigator.sendBeacon && navigator.sendBeacon(SHEET_URL, body)) return;
+      fetch(SHEET_URL, { method: "POST", mode: "no-cors", keepalive: true, body: body });
+    } catch (e) {}
   }
 
-  let lang = "ko";
+  let lang = "en";
 
   function pickInitial() {
     try { const saved = localStorage.getItem("bs-lang"); if (saved && T[saved]) return saved; } catch (e) {}
     const nav = (navigator.languages && navigator.languages[0]) || navigator.language || "ko";
     if (/^zh/i.test(nav)) return "zh";
-    if (/^ko/i.test(nav)) return "ko";
     return "en";
   }
 
@@ -360,7 +354,7 @@
 
   function tick() {
     const now = new Date();
-    const loc = lang === "zh" ? "zh-CN" : lang === "en" ? "en-US" : "ko-KR";
+    const loc = lang === "zh" ? "zh-CN" : "en-US";
     const d = now.toLocaleDateString(loc, { month: "short", day: "numeric", weekday: "short" });
     const tm = now.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
     document.getElementById("clock").textContent = d + "  " + tm;
@@ -375,6 +369,7 @@
   lang = pickInitial();
   loadAnalytics();
   render();
+  track("visit");
   setInterval(tick, 1000);
 </script>
 </body>
