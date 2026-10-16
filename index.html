@@ -167,7 +167,7 @@
   const LINKS = { naver: "https://naver.me/F1r2T6Oy", google: "https://share.google/WrmqrnarodhqoMafY", dianping: "https://m.dianping.com/shopinfo/H3uxKhJFgEYGxx9h" };
   const GA_ID = "";
   /* SHEET_URL: 구글 시트 Apps Script 웹 앱 주소 (https://script.google.com/macros/s/…/exec) */
-  const SHEET_URL = "https://script.google.com/macros/s/AKfycbyoYiU9W60l6LVASY2fJmbC9GAy0UFhQvqe8Y_jxauonVZQumZ2dYefWBPPH7iqoiXl5w/exec";
+  const SHEET_URL = "https://script.google.com/macros/s/AKfycbw5jWys0O6Qa_RklCae_pIfmxWKpxOSTElwV6np4a4WtypmFoWpXGX_pwSI2NNbnLPY4g/exec";
 
   const ICONS = {
     naver: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg>',
@@ -251,9 +251,9 @@
     try { if (window.gtag) window.gtag("event", name, data); } catch (e) {}
     if (!SHEET_URL) return;
     try {
-      const body = new URLSearchParams(data);
-      /* 구글 로그인 쿠키 없이 보냄: 휴대폰에 구글 계정이 여러 개여도 기록이 막히지 않게 */
-      fetch(SHEET_URL, { method: "POST", mode: "no-cors", credentials: "omit", keepalive: true, body: body });
+      /* JSON 텍스트로 보냄 (와인창고와 같은 방식 — 폼 형식은 구글이 400으로 거절함) */
+      fetch(SHEET_URL, { method: "POST", mode: "no-cors", keepalive: true,
+        headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(data) }).catch(function () {});
     } catch (e) {}
   }
 
